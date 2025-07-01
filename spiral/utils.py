@@ -6,7 +6,11 @@
 # @website https://github.com/casics/spiral
 # =============================================================================
 
-import collections
+# import collections
+try:
+    from collections.abc import Iterable
+except ImportError:
+    from collections import Iterable
 
 def msg(string, *other_args):
     '''Like the standard print(), but treats the first argument as a string
@@ -22,7 +26,8 @@ def flatten(lst):
     '''Recursively flatten a list of lists.  From the answer by user Christian
     here: https://stackoverflow.com/a/2158532/743730'''
     for el in lst:
-        if isinstance(el, collections.Iterable) and not isinstance(el, (str, bytes)):
+        # if isinstance(el, collections.Iterable) and not isinstance(el, (str, bytes)):
+        if isinstance(el, Iterable) and not isinstance(el, (str, bytes)):
             yield from flatten(el)
         else:
             yield el
